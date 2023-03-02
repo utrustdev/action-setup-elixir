@@ -20,9 +20,15 @@ inputs:
   # codebase "just work", though there may be speed gains to be had
   # by tweaking these flags.
   #################################################################
+  clean-re-run:
+    required: false
+    type: boolean
+    default: true
+    description: False if we should not clean dependencies on re-run
   fetch-depth:
     required: false
     default: 1
+    description: 0 if we should get all git history
   build-deps:
     required: false
     type: boolean
@@ -95,9 +101,9 @@ runs:
         path: ~/.hex
         key: build-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ hashFiles('**/mix.lock') }}
 
-    # Retries force a recompile
+    # Retries force a recompile but only if flag isn't
     - name: Clean to rule out incremental build as a source of flakiness
-      if: github.run_attempt != '1'
+      if: inputs.clean-re-run == 'true' && github.run_attempt != '1'
       run: |
         mix deps.clean --all
         mix clean
