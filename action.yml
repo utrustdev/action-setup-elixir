@@ -90,7 +90,7 @@ runs:
       id: hex-cache
       with:
         path: ~/.hex
-        key: build-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ hashFiles('**/mix.lock') }}
+        key: hex-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ hashFiles('**/mix.lock') }}
 
     # Retries force a recompile but only if flag isn't
     - name: Clean to rule out incremental build as a source of flakiness
