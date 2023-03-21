@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Setup Elixir Project
-        uses: ./.github/actions/elixir_setup
+        uses: utrustdev/action-setup-elixir@v2
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
