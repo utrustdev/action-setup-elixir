@@ -1,6 +1,6 @@
 # Github Action - Setup Elixir
 
-Checks out the code, configures Elixir, fetches dependencies, and manages build caching.
+Configures Elixir, fetches dependencies, and manages build caching.
 
 ## Usage
 Add the following step and matrix to your Action.
@@ -23,5 +23,8 @@ jobs:
           hex-org-key: ${{ secrets.HEX_ORG_KEY }}
 ```
 
-This action does not setup any additional services like Databases or Localstack.
+This action does not:
+* Check out the code
+* Setup any additional services like Databases or Localstack.
+
 Those need to be setup in each flow.
