@@ -77,6 +77,8 @@ runs:
       with:
         path: deps/
         key: deps-${{ inputs.cache-key }}-${{ runner.os }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: |
+          deps-${{ inputs.cache-key }}-${{ runner.os }}-
 
     - name: Get build cache
       uses: actions/cache@v3
@@ -84,6 +86,8 @@ runs:
       with:
         path: _build/${{env.MIX_ENV}}/
         key: build-${{ inputs.cache-key }}-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ env.MIX_ENV }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: |
+          build-${{ inputs.cache-key }}-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ env.MIX_ENV }}-
 
     - name: Get Hex cache
       uses: actions/cache@v3
@@ -91,6 +95,8 @@ runs:
       with:
         path: ~/.hex
         key: hex-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ hashFiles('**/mix.lock') }}
+        restore-keys: |
+          hex-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-
 
     # Retries force a recompile but only if flag isn't
     - name: Clean to rule out incremental build as a source of flakiness
